@@ -1,0 +1,54 @@
+{
+  "name": "@bluechonk/dsh-mcp-manager",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness 插件 @bluechonk/dsh-mcp-manager：设置页「模型」下方的「MCP 服务器」分区——按作用域（用户·本机 / 各工作区）管理 MCP 服务器，支持搜索、表单或 JSON 两种新建方式、导入既有配置、启停、编辑与删除，运行期直接挂载 mcp-client，无需重启宿主。",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./client/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-slots"
+      ]
+    }
+  },
+  "files": [
+    "lib/index.js",
+    "lib/schema.js",
+    "lib/scopes.js",
+    "client/client.js",
+    "cordis.patch.yml",
+    "locale/en.json",
+    "locale/zh.json",
+    "icon.svg",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node --test \"test/**/*.test.mjs\"",
+    "check": "node --check lib/index.js && node --check lib/schema.js && node --check lib/scopes.js && node --check client/client.js"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "plugin",
+    "mcp",
+    "model-context-protocol",
+    "settings"
+  ],
+  "author": "BlueChonk",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.15.0"
+  }
+}

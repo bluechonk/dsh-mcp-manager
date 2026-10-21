@@ -1,0 +1,6 @@
+node_modules/
+.tmp/
+.planning/
+.zcode/
+*.log
+.DS_Store

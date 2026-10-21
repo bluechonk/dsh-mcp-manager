@@ -46,6 +46,12 @@
     "model-context-protocol",
     "settings"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluechonk/dsh-mcp-manager.git"
+  },
+  "homepage": "https://github.com/bluechonk/dsh-mcp-manager#readme",
+  "bugs": "https://github.com/bluechonk/dsh-mcp-manager/issues",
   "author": "BlueChonk",
   "license": "MIT",
   "engines": {

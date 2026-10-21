@@ -1,6 +1,6 @@
 {
   "name": "@bluechonk/dsh-mcp-manager",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "DeepSeek Harness 插件 @bluechonk/dsh-mcp-manager：设置页「模型」下方的「MCP 服务器」分区——按作用域（用户·本机 / 各工作区）管理 MCP 服务器，支持搜索、表单或 JSON 两种新建方式、导入既有配置、启停、编辑与删除，运行期直接挂载 mcp-client，无需重启宿主。",
   "type": "module",
   "main": "lib/index.js",

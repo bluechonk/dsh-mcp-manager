@@ -9,7 +9,7 @@ DeepSeek Harness 插件：设置页「模型」正下方的「MCP 服务器」�
 - 导入既有配置：一次粘贴多条
 - 启停、重新连接、删除：停用即断开并注销该服务器的全部工具
 - 状态可视：已连接（带工具数）/ 连接中 / 连接失败 / 离线 / 已停用 / 未连接
-- 宿主提供的 MCP 服务器以只读分组展示，标明由哪个插件提供
+- 宿主提供的 MCP 服务器以只读分组展示，标明由哪个插件提供；启动失败的显示「MCP 进程启动失败。」
 - 简体中文与 English，深浅色跟随 DSH 主题
 
 ## 截图
@@ -68,9 +68,11 @@ dsh plugin --profile desktop add /path/to/dsh-mcp-manager
 ## 开发
 
 ```sh
-npm test        # node --test
+npm test        # node --test：schema / scopes / client 三组单测
 npm run check   # 语法检查
 ```
+
+client 半是单文件自包含，测试用最小 React 桩物化 `__ModuleLoader__` 工厂后直测 `__pure` 导出面。
 
 ## 许可证
 

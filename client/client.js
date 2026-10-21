@@ -73,6 +73,7 @@ window.__ModuleLoader__.load({
       ".dmm-cardTitleRow{display:flex;align-items:center;gap:8px;min-width:0}",
       ".dmm-cardName{font-size:14px;font-weight:400;line-height:21px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
       ".dmm-cardDesc{font-size:12px;color:var(--dsw-alias-label-secondary);line-height:18px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      ".dmm-cardInfo{display:inline-flex;align-items:center;margin-left:4px;vertical-align:-2px;color:var(--dsw-alias-label-secondary)}",
       ".dmm-cardActions{display:flex;align-items:center;gap:6px;flex:none}",
       ".dmm-badge{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:999px;border:1px solid var(--dsw-alias-border-l1);color:var(--dsw-alias-label-secondary);font-size:11.5px;white-space:nowrap}",
       ".dmm-badgeOk{color:var(--dsw-alias-state-success-primary);border-color:color-mix(in srgb, var(--dsw-alias-state-success-primary) 45%, transparent)}",
@@ -157,6 +158,7 @@ window.__ModuleLoader__.load({
     const IconFile = (p) => h(Svg, p, h("path", { d: "M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" }), h("path", { d: "M14 3v5h5" }));
     const IconLayers = (p) => h(Svg, p, h("rect", { x: 4, y: 4, width: 12, height: 12, rx: 2 }), h("path", { d: "M9 20h9a2 2 0 0 0 2-2V9" }));
     const IconCheck = (p) => h(Svg, p, h("path", { d: "m5 13 4 4 10-10" }));
+    const IconInfo = (p) => h(Svg, p, h("circle", { cx: 12, cy: 12, r: 9 }), h("path", { d: "M12 11v5" }), h("path", { d: "M12 8h.01" }));
 
     /* ---------------------------------------------------------------- */
     /* 国际化                                                            */
@@ -227,6 +229,9 @@ window.__ModuleLoader__.load({
         "status.disabled": "已停用",
         "status.disconnected": "未连接",
         "provided.desc": "该 MCP 服务器由 DSH 宿主为 {provider} 插件提供，运行时身份由宿主管理。",
+        "provided.failed": "MCP 进程启动失败。",
+        "provided.disabled": "该 MCP 服务器已被宿主停用。",
+        "provided.pending": "该 MCP 服务器正在启动。",
         "group.browser": "浏览器操作",
         "group.computer": "电脑控制",
         "group.document": "文档",
@@ -314,6 +319,9 @@ window.__ModuleLoader__.load({
         "status.disabled": "Disabled",
         "status.disconnected": "Not connected",
         "provided.desc": "This MCP server is provided by the DSH host for the {provider} plugin; the host owns its runtime identity.",
+        "provided.failed": "MCP process failed to start.",
+        "provided.disabled": "This MCP server is disabled by the host.",
+        "provided.pending": "This MCP server is starting.",
         "group.browser": "Browser automation",
         "group.computer": "Computer control",
         "group.document": "Documents",
@@ -650,11 +658,24 @@ window.__ModuleLoader__.load({
     function ProvidedCard(props) {
       const server = props.server;
       const Icon = server.transport === "stdio" ? IconPlug : IconGlobe;
+      let description = tr(currentT, "provided.desc", { provider: server.id });
+      let failed = false;
+      if (server.state === "failed") {
+        description = tr(currentT, "provided.failed");
+        failed = true;
+      } else if (server.state === "disabled") {
+        description = tr(currentT, "provided.disabled");
+      } else if (server.state === "pending") {
+        description = tr(currentT, "provided.pending");
+      }
       return h("div", { className: "dmm-card" },
         h("div", { className: "dmm-cardIcon" }, h(Icon, { width: 18, height: 18 })),
         h("div", { className: "dmm-cardMain" },
           h("div", { className: "dmm-cardTitleRow" }, h("span", { className: "dmm-cardName" }, server.serverName)),
-          h("div", { className: "dmm-cardDesc" }, tr(currentT, "provided.desc", { provider: server.id })),
+          h("div", { className: "dmm-cardDesc" },
+            description,
+            failed ? h("span", { className: "dmm-cardInfo", title: description }, h(IconInfo, { width: 13, height: 13 })) : null,
+          ),
         ),
       );
     }

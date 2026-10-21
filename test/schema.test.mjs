@@ -5,6 +5,7 @@ import assert from 'node:assert/strict'
 import {
   DEFAULT_TOOL_TIMEOUT_MS,
   describeTarget,
+  inferTransport,
   normalizeServerEntry,
   normalizeTransport,
   parseServerDocument,
@@ -94,6 +95,30 @@ test('parseServerDocument 拒绝非法输入', () => {
   assert.equal(parseServerDocument('{oops').code, 'invalid-json')
   assert.equal(parseServerDocument('[]').code, 'empty-document')
   assert.equal(parseServerDocument('{}').code, 'empty-document')
+})
+
+test('不写 type/transport 时按字段推断传输方式', () => {
+  assert.equal(inferTransport({ command: 'npx' }), 'stdio')
+  assert.equal(inferTransport({ url: 'http://127.0.0.1:8080/mcp' }), 'streamable-http')
+  assert.equal(inferTransport({}), '')
+
+  // Claude Code / VS Code 常见的 mcpServers 形状不带 type，必须能直接粘贴
+  const inferred = normalizeServerEntry({ command: 'npx', args: ['-y', '@playwright/mcp@latest'] }, { fallbackName: 'playwright' })
+  assert.equal(inferred.ok, true)
+  assert.equal(inferred.value.transport, 'stdio')
+  assert.equal(inferred.value.serverName, 'playwright')
+})
+
+test('parseServerDocument 认得不带 type 的 Claude 风格配置', () => {
+  const parsed = parseServerDocument(JSON.stringify({
+    mcpServers: {
+      playwright: { command: 'npx', args: ['-y', '@playwright/mcp@latest'] },
+    },
+  }))
+  assert.equal(parsed.ok, true)
+  assert.equal(parsed.servers[0].serverName, 'playwright')
+  assert.equal(parsed.servers[0].transport, 'stdio')
+  assert.deepEqual(parsed.servers[0].args, ['-y', '@playwright/mcp@latest'])
 })
 
 test('describeTarget 给出命令或地址', () => {

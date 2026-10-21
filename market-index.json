@@ -27,12 +27,12 @@
       },
       "versions": [
         {
-          "version": "0.1.0",
+          "version": "1.0.0",
           "publishTimestamp": 1792553849,
           "source": {
             "type": "git",
             "url": "https://github.com/bluechonk/dsh-mcp-manager",
-            "commit": "1d560351af3eda685de3dea843db594c7b52acff"
+            "commit": "50d9c023e82f74952c73aadb7c9ac8908f6b1b75"
           }
         }
       ]

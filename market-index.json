@@ -1,0 +1,41 @@
+{
+  "format": 1,
+  "title": {
+    "en": "bluechonk plugin market",
+    "zh": "bluechonk 插件市场"
+  },
+  "description": {
+    "en": "Personal plugin market for the DeepSeek Harness: install plugins straight from GitHub repositories.",
+    "zh": "DeepSeek Harness 的个人插件市场：直接从 GitHub 仓库安装插件。"
+  },
+  "plugins": [
+    {
+      "name": "@bluechonk/dsh-mcp-manager",
+      "title": {
+        "en": "MCP Servers Manager",
+        "zh": "MCP 服务器管理"
+      },
+      "description": {
+        "en": "Adds an MCP Servers section right below Models in the settings page: manage MCP servers per scope (user-local and each workspace), with search, a form or JSON editor, config import, enable/disable, edit and delete. Servers mount at runtime, no host restart needed.",
+        "zh": "在设置页「模型」正下方新增「MCP 服务器」分区：按作用域（用户·本机与各工作区）管理 MCP 服务器，支持搜索、表单或 JSON 两种新建方式、导入既有配置、启停、编辑与删除；保存后运行期直接挂载，无需重启宿主。"
+      },
+      "icon": "https://raw.githubusercontent.com/bluechonk/dsh-mcp-manager/main/icon.svg",
+      "author": "bluechonk",
+      "homepage": "https://github.com/bluechonk/dsh-mcp-manager",
+      "repository": {
+        "url": "https://github.com/bluechonk/dsh-mcp-manager"
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1792553849,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/bluechonk/dsh-mcp-manager",
+            "commit": "1d560351af3eda685de3dea843db594c7b52acff"
+          }
+        }
+      ]
+    }
+  ]
+}

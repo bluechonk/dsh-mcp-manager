@@ -18,19 +18,50 @@ DeepSeek Harness 插件：设置页「模型」正下方的「MCP 服务器」�
 
 ![新建表单](docs/images/02-新建-表单模式.png)
 
-## 安装
+## 安装、更新、卸载
 
-### 人类安装
+### 方式一：在「插件」页粘贴 GitHub 链接（推荐）
 
-```sh
-dsh plugin --profile desktop add @bluechonk/dsh-mcp-manager
+DSH 的「插件」页右上角有「**+ 添加插件**」，弹窗第一行就写着「输入插件的包名、**GitHub 仓库地址**或本地目录路径」——
+把下面的仓库链接粘进去点「安装」即可，界面会把它识别为「Git 仓库」：
+
+```
+https://github.com/bluechonk/dsh-mcp-manager
 ```
 
-装完后在设置页「模型」正下方就能看到「MCP 服务器」分区。
+装完宿主会把包写进 profile 的 `dependencies`（值为 `github:bluechonk/dsh-mcp-manager`），
+并把它加进 `dsh.profile.bundles`；随后设置页导航里「MCP 服务器」就出现在「模型」下方。
 
-从源码安装（本地目录会被 pnpm 以链接方式装进 profile）：
+### 方式二：插件市场索引（可浏览、可一键安装）
 
-```sh
+本仓库自带**插件市场索引** `market-index.json`（指向本仓库的 git 源，锁定 commit）。启用市场 bundle 后，
+在 DSH「设置 → 插件」页的索引源输入框粘贴下面这条 GitHub 链接，Discover 标签里就会出现本插件，点「安装」即可：
+
+```
+https://raw.githubusercontent.com/bluechonk/dsh-mcp-manager/main/market-index.json
+```
+
+启用市场 bundle（一次性；注意版本要与当前 DSH 运行时兼容，不兼容时宿主会拒绝启用并提示对应版本）：
+
+```bash
+plugin_manager set_bundle --target "@deepseek-ai/dsh-experimental-plugin-market-bundle" --enabled true
+```
+
+### 方式三：工具与命令行
+
+```bash
+# 工具（对话里可用 plugin_manager 工具）
+plugin_manager install_bundle --target "https://github.com/bluechonk/dsh-mcp-manager"
+
+# 命令行（转发给 profile 目录里的 pnpm）
+dsh plugin --profile desktop add "https://github.com/bluechonk/dsh-mcp-manager"
+```
+
+### 本地开发
+
+从源码开发时，把仓库目录链接进 profile 的 `node_modules`，宿主按链接目标加载，改完刷新页面即可生效：
+
+```bash
 dsh plugin --profile desktop add /path/to/dsh-mcp-manager
 ```
 

@@ -22,17 +22,35 @@ A DeepSeek Harness plugin: an **"MCP Servers"** section right below **Models** i
 
 ## Install
 
+Paste the repository URL into the DSH **Plugins** page ("+ Add plugin"), or run one of:
+
 ```sh
-dsh plugin --profile desktop add @bluechonk/dsh-mcp-manager
+# CLI (forwarded to pnpm in the profile directory)
+dsh plugin --profile desktop add "https://github.com/bluechonk/dsh-mcp-manager"
+
+# Agent tool
+plugin_manager install_bundle --target "https://github.com/bluechonk/dsh-mcp-manager"
 ```
 
-From a local checkout:
+The host writes the package into the profile's `dependencies` (as `github:bluechonk/dsh-mcp-manager`)
+and adds it to `dsh.profile.bundles`; the section then appears right below **Models** in Settings.
+
+This repository also ships a **plugin market index** (`market-index.json`). Once the market bundle is
+enabled, paste the raw index URL into the index source box on the Plugins page and the plugin shows up
+under Discover:
+
+```
+https://raw.githubusercontent.com/bluechonk/dsh-mcp-manager/main/market-index.json
+```
+
+### Local development
+
+Link a checkout into the profile's `node_modules`; the host loads the link target, so edits take effect
+after a page refresh:
 
 ```sh
 dsh plugin --profile desktop add /path/to/dsh-mcp-manager
 ```
-
-The section then appears right below **Models** in Settings.
 
 ### For AI agents
 

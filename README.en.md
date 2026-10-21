@@ -76,6 +76,19 @@ Workspace      <workspace directory>/.dsh/mcp-manager/servers.json
 
 Details: [docs/设计与验证.md](docs/设计与验证.md) (Chinese).
 
+## Version line
+
+**This plugin is for personal use, so the version stays on `0.1.x`.** `0.x` means "initial development, no
+compatibility promise" — the list format, the API and the UI may still change. Following SemVer:
+
+- `0.1.0` → `0.1.1` → `0.1.2`: fixes and small changes within the same design;
+- `0.2.0`: a new design (incompatible list format or API), existing configurations then need migration;
+- `1.0.0` only when **someone else starts depending on the list format and the API**, i.e. when a stability
+  promise is actually needed.
+
+Compatibility across DSH upgrades is not decided by this plugin's version number; it is handled by
+`engines.dsh` / peerDependencies declarations and the host's version-exemption mechanism.
+
 ## Known limitations
 
 - The DSH tool registry is process-wide: a scope only decides where the list is stored, it cannot restrict tools to one workspace.
